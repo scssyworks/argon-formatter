@@ -64,6 +64,10 @@ function format(value, options) {
     localeFormats[language + '-' + region] || {});
   let currency = Object.assign({}, defaultCurrency, findCurrency(code), localeFormat);
 
+  if (!currency.symbol) {
+    currency.symbol = code;
+  }
+
   let symbolOnLeft = currency.symbolOnLeft;
   let spaceBetweenAmountAndSymbol = currency.spaceBetweenAmountAndSymbol;
 

@@ -2515,6 +2515,9 @@
     var region = localeMatch[3];
     var localeFormat = Object.assign({}, defaultLocaleFormat, localeFormats_1[language] || {}, localeFormats_1[language + '-' + region] || {});
     var currency = Object.assign({}, defaultCurrency, findCurrency(code), localeFormat);
+    if (!currency.symbol) {
+      currency.symbol = code;
+    }
     var symbolOnLeft = currency.symbolOnLeft;
     var spaceBetweenAmountAndSymbol = currency.spaceBetweenAmountAndSymbol;
     var format = formatMapping.filter(function (f) {

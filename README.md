@@ -15,7 +15,7 @@ Basic Usage
 By specifying the currency code
 
 ```js
-import * as money from 'uniformat';
+import * as money from 'argon-formatter';
 
 money.format(1000000, { code: 'USD' });
 // => '$1,000,000.00'
@@ -29,7 +29,7 @@ money.format(1000000, { code: 'EUR' });
 
 Or by specifying the locale
 ```js
-import * as money from 'uniformat';
+import * as money from 'argon-formatter';
 
 money.format(1000000, { locale: 'en-US' });
 // => '$1,000,000.00'
@@ -50,7 +50,7 @@ money.format(1000000, { locale: 'nl-NL' });
 You can also get the currency information.
 
 ```js
-import * as money from 'uniformat';
+import * as money from 'argon-formatter';
 
 money.findCurrency('USD');
 // returns:
@@ -101,7 +101,7 @@ Advanced Usage
 Currency Formatter uses [accounting](https://github.com/openexchangerates/accounting.js) library under the hood, and you can use its options to override the default behavior.
 
 ```JAVASCRIPT
-import * as money from 'uniformat';
+import * as money from 'argon-formatter';
 money.format(1000000, {
   symbol: '@',
   decimal: '*',
