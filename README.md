@@ -100,7 +100,7 @@ Advanced Usage
 =
 Currency Formatter uses [accounting](https://github.com/openexchangerates/accounting.js) library under the hood, and you can use its options to override the default behavior.
 
-```JAVASCRIPT
+```js
 import * as money from 'argon-formatter';
 money.format(1000000, {
   symbol: '@',
