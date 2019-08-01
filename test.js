@@ -1,6 +1,6 @@
 var chai = require('chai')
 var assert = chai.assert
-var currencyFormatter = require('./index')
+var currencyFormatter = require('./dist/js/argon-formatter')
 
 describe('format', () => {
   context('Default Options', () => {
@@ -315,11 +315,11 @@ describe('format', () => {
 
 describe('currencies', () => {
   it('should be exposed as public via require()', () => {
-    assert(Array.isArray(require('./currencies')))
+    assert(Array.isArray(Object.keys(require('./json/currencies'))))
   })
 
   it('should be exposed as public via .currencies', () => {
-    assert(Array.isArray(currencyFormatter.currencies))
+    assert(Array.isArray(currencyFormatter.currencies()))
   })
 })
 

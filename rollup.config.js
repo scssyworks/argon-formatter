@@ -1,7 +1,7 @@
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
-import { uglify } from "rollup-plugin-uglify";
+import { terser } from "rollup-plugin-terser";
 import json from "rollup-plugin-json";
 import cleanup from "rollup-plugin-cleanup";
 
@@ -37,9 +37,9 @@ export default [
     {
         input: "index.js",
         output: {
-            file: "dist/js/uniformat.js",
+            file: "dist/js/argon-formatter.js",
             format: "umd",
-            name: "currencyFormatter",
+            name: "money",
             exports: "named"
         },
         plugins: [
@@ -58,9 +58,9 @@ export default [
     {
         input: "index.js",
         output: {
-            file: "dist/js/uniformat.min.js",
+            file: "dist/js/argon-formatter.min.js",
             format: "umd",
-            name: "currencyFormatter",
+            name: "money",
             exports: "named"
         },
         plugins: [
@@ -73,7 +73,7 @@ export default [
             babel({
                 exclude: "node_modules/**"
             }),
-            uglify()
+            terser()
         ]
     }
 ]

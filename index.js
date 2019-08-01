@@ -1,5 +1,5 @@
+import 'core-js/features/object/assign';
 import accounting from 'accounting';
-import assign from 'object-assign';
 import localeCurrency from 'locale-currency';
 import curr from './json/currencies';
 import localeFormats from './json/localeFormats';
@@ -59,32 +59,32 @@ function format(value, options) {
   let localeMatch = /^([a-z]+)([_-]([a-z]+))?$/i.exec(options.locale) || [];
   let language = localeMatch[1];
   let region = localeMatch[3];
-  let localeFormat = assign({}, defaultLocaleFormat,
+  let localeFormat = Object.assign({}, defaultLocaleFormat,
     localeFormats[language] || {},
     localeFormats[language + '-' + region] || {});
-  let currency = assign({}, defaultCurrency, findCurrency(code), localeFormat);
+  let currency = Object.assign({}, defaultCurrency, findCurrency(code), localeFormat);
 
   let symbolOnLeft = currency.symbolOnLeft;
   let spaceBetweenAmountAndSymbol = currency.spaceBetweenAmountAndSymbol;
 
   let format = formatMapping.filter(function (f) {
-    return f.symbolOnLeft == symbolOnLeft && f.spaceBetweenAmountAndSymbol == spaceBetweenAmountAndSymbol
+    return f.symbolOnLeft === symbolOnLeft && f.spaceBetweenAmountAndSymbol === spaceBetweenAmountAndSymbol
   })[0].format;
 
   return accounting.formatMoney(value, {
-    symbol: isUndefined(options.symbol)
+    symbol: (typeof options.symbol === 'undefined')
       ? currency.symbol
       : options.symbol,
 
-    decimal: isUndefined(options.decimal)
+    decimal: (typeof options.decimal === 'undefined')
       ? currency.decimalSeparator
       : options.decimal,
 
-    thousand: isUndefined(options.thousand)
+    thousand: (typeof options.thousand === 'undefined')
       ? currency.thousandsSeparator
       : options.thousand,
 
-    precision: typeof options.precision === 'number'
+    precision: (typeof options.precision === 'number')
       ? options.precision
       : currency.decimalDigits,
 
@@ -98,15 +98,11 @@ function findCurrency(currencyCode) {
   return curr[currencyCode];
 }
 
-function isUndefined(val) {
-  return (typeof val === 'undefined');
-}
-
 function unformat(value, options) {
-  let code = options.code || (options.locale && localeCurrency.getCurrency(options.locale));
-  let localeFormat = localeFormats[options.locale] || defaultLocaleFormat;
-  let currency = assign({}, defaultCurrency, findCurrency(code), localeFormat);
-  let decimal = isUndefined(options.decimal) ? currency.decimalSeparator : options.decimal;
+  const code = options.code || (options.locale && localeCurrency.getCurrency(options.locale));
+  const localeFormat = localeFormats[options.locale] || defaultLocaleFormat;
+  const currency = Object.assign({}, defaultCurrency, findCurrency(code), localeFormat);
+  const decimal = (typeof options.decimal === 'undefined') ? currency.decimalSeparator : options.decimal;
   return accounting.unformat(value, decimal);
 }
 

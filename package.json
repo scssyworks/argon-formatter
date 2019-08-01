@@ -1,11 +1,12 @@
 {
-  "name": "uniformat",
-  "version": "1.0.4",
-  "description": "A universal Javascript utility that helps you to display currency properly",
-  "main": "dist/js/uniformat.js",
+  "name": "argon-formatter",
+  "version": "0.0.1",
+  "description": "A universal Javascript utility for formatting currency",
+  "main": "dist/js/argon-formatter.js",
   "module": "index.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,8 @@
     "money",
     "formatter",
     "universal-formatter",
-    "uniformat"
+    "argon-formatter",
+    "currency-formatter"
   ],
   "author": "Sachin Singh <contactsachinsingh@gmail.com>",
   "license": "MIT",
@@ -26,21 +28,21 @@
   },
   "homepage": "https://github.com/scssyworks/currency-formatter#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "rollup": "^0.66.0",
-    "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-cleanup": "^3.0.0",
-    "rollup-plugin-commonjs": "^9.1.8",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-uglify": "^6.0.0"
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.1"
   },
   "dependencies": {
     "accounting": "^0.4.1",
-    "locale-currency": "0.0.2",
-    "object-assign": "^4.1.1"
+    "core-js": "^3.1.4",
+    "locale-currency": "0.0.2"
   }
 }
