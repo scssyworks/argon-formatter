@@ -2516,7 +2516,7 @@
     var localeFormat = Object.assign({}, defaultLocaleFormat, localeFormats_1[language] || {}, localeFormats_1[language + '-' + region] || {});
     var currency = Object.assign({}, defaultCurrency, findCurrency(code), localeFormat);
     if (!currency.symbol) {
-      currency.symbol = code;
+      currency.symbol = "".concat(code, " ");
     }
     var symbolOnLeft = currency.symbolOnLeft;
     var spaceBetweenAmountAndSymbol = currency.spaceBetweenAmountAndSymbol;
