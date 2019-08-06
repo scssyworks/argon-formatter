@@ -1250,6 +1250,15 @@
     "spaceBetweenAmountAndSymbol": false,
     "decimalDigits": 2
   },
+  "YTL": {
+    "code": "YTL",
+    "symbol": "₺",
+    "thousandsSeparator": ".",
+    "decimalSeparator": ",",
+    "symbolOnLeft": true,
+    "spaceBetweenAmountAndSymbol": false,
+    "decimalDigits": 2
+  },
   "TTD": {
     "code": "TTD",
     "symbol": "TT$",
