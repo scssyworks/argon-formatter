@@ -1199,10 +1199,10 @@
     },
     CHF: {
       code: "CHF",
-      symbol: "Fr",
+      symbol: "CHF",
       thousandsSeparator: "'",
       decimalSeparator: ".",
-      symbolOnLeft: false,
+      symbolOnLeft: true,
       spaceBetweenAmountAndSymbol: true,
       decimalDigits: 2
     },
@@ -1290,7 +1290,7 @@
     DKK: {
       code: "DKK",
       symbol: "kr.",
-      thousandsSeparator: "",
+      thousandsSeparator: ".",
       decimalSeparator: ",",
       symbolOnLeft: false,
       spaceBetweenAmountAndSymbol: true,
@@ -1446,7 +1446,7 @@
       thousandsSeparator: ",",
       decimalSeparator: ".",
       symbolOnLeft: true,
-      spaceBetweenAmountAndSymbol: true,
+      spaceBetweenAmountAndSymbol: false,
       decimalDigits: 2
     },
     HNL: {
@@ -2067,7 +2067,7 @@
       thousandsSeparator: ",",
       decimalSeparator: ".",
       symbolOnLeft: true,
-      spaceBetweenAmountAndSymbol: true,
+      spaceBetweenAmountAndSymbol: false,
       decimalDigits: 2
     },
     SHP: {
@@ -2189,11 +2189,11 @@
     },
     TRY: {
       code: "TRY",
-      symbol: "TL",
+      symbol: "₺",
       thousandsSeparator: ".",
       decimalSeparator: ",",
-      symbolOnLeft: false,
-      spaceBetweenAmountAndSymbol: true,
+      symbolOnLeft: true,
+      spaceBetweenAmountAndSymbol: false,
       decimalDigits: 2
     },
     TTD: {
@@ -2299,10 +2299,10 @@
       code: "VND",
       symbol: "₫",
       thousandsSeparator: ".",
-      decimalSeparator: ",",
+      decimalSeparator: ".",
       symbolOnLeft: false,
       spaceBetweenAmountAndSymbol: true,
-      decimalDigits: 1
+      decimalDigits: 0
     },
     VUV: {
       code: "VUV",
