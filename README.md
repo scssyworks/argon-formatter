@@ -15,44 +15,44 @@ Basic Usage
 By specifying the currency code
 
 ```js
-import * as money from 'argon-formatter';
+import * as argonFormatter from 'argon-formatter';
 
-money.format(1000000, { code: 'USD' });
+argonFormatter.format(1000000, { code: 'USD' });
 // => '$1,000,000.00'
 
-money.format(1000000, { code: 'GBP' });
+argonFormatter.format(1000000, { code: 'GBP' });
 // => '£1,000,000.00'
 
-money.format(1000000, { code: 'EUR' });
+argonFormatter.format(1000000, { code: 'EUR' });
 // => '1 000 000,00 €'
 ```
 
 Or by specifying the locale
 ```js
-import * as money from 'argon-formatter';
+import * as argonFormatter from 'argon-formatter';
 
-money.format(1000000, { locale: 'en-US' });
+argonFormatter.format(1000000, { locale: 'en-US' });
 // => '$1,000,000.00'
 
-money.format(1000000, { locale: 'en-GB' });
+argonFormatter.format(1000000, { locale: 'en-GB' });
 // => '£1,000,000.00'
 
-money.format(1000000, { locale: 'GB' });
+argonFormatter.format(1000000, { locale: 'GB' });
 // => '£1,000,000.00'
 
-money.format(1000000, { locale: 'de-DE' });
+argonFormatter.format(1000000, { locale: 'de-DE' });
 // => '1.000.000,00 €'
 
-money.format(1000000, { locale: 'nl-NL' });
+argonFormatter.format(1000000, { locale: 'nl-NL' });
 // => '€1.000.000,00'
 ```
 
 You can also get the currency information.
 
 ```js
-import * as money from 'argon-formatter';
+import * as argonFormatter from 'argon-formatter';
 
-money.findCurrency('USD');
+argonFormatter.findCurrency('USD');
 // returns:
 // {
 //   code: 'USD',
@@ -70,28 +70,28 @@ Parse the number of a monetary value
 
 ```js
 
-money.unformat('$10.5', { code: 'USD' })
+argonFormatter.unformat('$10.5', { code: 'USD' })
 // => 10.5
 
-money.unformat('$1,000,000', { code: 'USD' })
+argonFormatter.unformat('$1,000,000', { code: 'USD' })
 // => 1000000
 
-money.unformat('10,5 €', { code: 'EUR' })
+argonFormatter.unformat('10,5 €', { code: 'EUR' })
 // => 10.5
 
-money.unformat('1 000 000,00 €', { code: 'EUR' })
+argonFormatter.unformat('1 000 000,00 €', { code: 'EUR' })
 // => 1000000
 
-money.unformat('1.000,99', { locale: 'de-DE' })
+argonFormatter.unformat('1.000,99', { locale: 'de-DE' })
 // => 1000.99
 
-money.unformat('10\'000 CHF', { code: 'CHF' })
+argonFormatter.unformat('10\'000 CHF', { code: 'CHF' })
 // => 10000
 
-money.unformat('10.00 CHF', { code: 'CHF' })
+argonFormatter.unformat('10.00 CHF', { code: 'CHF' })
 // => 10
 
-money.unformat('10,00 CHF', { code: 'CHF' })
+argonFormatter.unformat('10,00 CHF', { code: 'CHF' })
 // => 1000
 
 ```
@@ -101,8 +101,8 @@ Advanced Usage
 Currency Formatter uses [accounting](https://github.com/openexchangerates/accounting.js) library under the hood, and you can use its options to override the default behavior.
 
 ```js
-import * as money from 'argon-formatter';
-money.format(1000000, {
+import * as argonFormatter from 'argon-formatter';
+argonFormatter.format(1000000, {
   symbol: '@',
   decimal: '*',
   thousand: '^',
@@ -113,7 +113,7 @@ money.format(1000000, {
 // => '1^000^000*0 @'
 
 // Different formatting for positive and negative values
-money.format(-10, {
+argonFormatter.format(-10, {
   format: {
     pos: '%s%v' // %s is the symbol and %v is the value
     neg: '(%s%v)',
@@ -127,5 +127,5 @@ money.format(-10, {
 You could also get a list of all the currencies:
 
 ```js
-const currencies = money.currencies();
+const currencies = argonFormatter.currencies();
 ```

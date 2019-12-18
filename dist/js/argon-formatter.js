@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.money = {}));
-}(this, function (exports) { 'use strict';
+  (global = global || self, factory(global.argonFormatter = {}));
+}(this, (function (exports) { 'use strict';
 
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -24,15 +24,14 @@
   	return module = { exports: {} }, fn(module, module.exports), module.exports;
   }
 
-  var O = 'object';
   var check = function (it) {
     return it && it.Math == Math && it;
   };
   var global_1 =
-    check(typeof globalThis == O && globalThis) ||
-    check(typeof window == O && window) ||
-    check(typeof self == O && self) ||
-    check(typeof commonjsGlobal == O && commonjsGlobal) ||
+    check(typeof globalThis == 'object' && globalThis) ||
+    check(typeof window == 'object' && window) ||
+    check(typeof self == 'object' && self) ||
+    check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
     Function('return this')();
 
   var fails = function (exec) {
@@ -153,7 +152,7 @@
   	f: f$2
   };
 
-  var hide = descriptors ? function (object, key, value) {
+  var createNonEnumerableProperty = descriptors ? function (object, key, value) {
     return objectDefineProperty.f(object, key, createPropertyDescriptor(1, value));
   } : function (object, key, value) {
     object[key] = value;
@@ -162,28 +161,36 @@
 
   var setGlobal = function (key, value) {
     try {
-      hide(global_1, key, value);
+      createNonEnumerableProperty(global_1, key, value);
     } catch (error) {
       global_1[key] = value;
     } return value;
   };
 
-  var shared = createCommonjsModule(function (module) {
   var SHARED = '__core-js_shared__';
   var store = global_1[SHARED] || setGlobal(SHARED, {});
+  var sharedStore = store;
+
+  var functionToString = Function.toString;
+  if (typeof sharedStore.inspectSource != 'function') {
+    sharedStore.inspectSource = function (it) {
+      return functionToString.call(it);
+    };
+  }
+  var inspectSource = sharedStore.inspectSource;
+
+  var WeakMap = global_1.WeakMap;
+  var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(inspectSource(WeakMap));
+
+  var shared = createCommonjsModule(function (module) {
   (module.exports = function (key, value) {
-    return store[key] || (store[key] = value !== undefined ? value : {});
+    return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.1.3',
+    version: '3.5.0',
     mode:  'global',
     copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
   });
   });
-
-  var functionToString = shared('native-function-to-string', Function.toString);
-
-  var WeakMap = global_1.WeakMap;
-  var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(functionToString.call(WeakMap));
 
   var id = 0;
   var postfix = Math.random();
@@ -212,25 +219,25 @@
     };
   };
   if (nativeWeakMap) {
-    var store = new WeakMap$1();
-    var wmget = store.get;
-    var wmhas = store.has;
-    var wmset = store.set;
+    var store$1 = new WeakMap$1();
+    var wmget = store$1.get;
+    var wmhas = store$1.has;
+    var wmset = store$1.set;
     set = function (it, metadata) {
-      wmset.call(store, it, metadata);
+      wmset.call(store$1, it, metadata);
       return metadata;
     };
     get = function (it) {
-      return wmget.call(store, it) || {};
+      return wmget.call(store$1, it) || {};
     };
     has$1 = function (it) {
-      return wmhas.call(store, it);
+      return wmhas.call(store$1, it);
     };
   } else {
     var STATE = sharedKey('state');
     hiddenKeys[STATE] = true;
     set = function (it, metadata) {
-      hide(it, STATE, metadata);
+      createNonEnumerableProperty(it, STATE, metadata);
       return metadata;
     };
     get = function (it) {
@@ -251,16 +258,13 @@
   var redefine = createCommonjsModule(function (module) {
   var getInternalState = internalState.get;
   var enforceInternalState = internalState.enforce;
-  var TEMPLATE = String(functionToString).split('toString');
-  shared('inspectSource', function (it) {
-    return functionToString.call(it);
-  });
+  var TEMPLATE = String(String).split('String');
   (module.exports = function (O, key, value, options) {
     var unsafe = options ? !!options.unsafe : false;
     var simple = options ? !!options.enumerable : false;
     var noTargetGet = options ? !!options.noTargetGet : false;
     if (typeof value == 'function') {
-      if (typeof key == 'string' && !has(value, 'name')) hide(value, 'name', key);
+      if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
       enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
     }
     if (O === global_1) {
@@ -273,9 +277,9 @@
       simple = true;
     }
     if (simple) O[key] = value;
-    else hide(O, key, value);
+    else createNonEnumerableProperty(O, key, value);
   })(Function.prototype, 'toString', function toString() {
-    return typeof this == 'function' && getInternalState(this).source || functionToString.call(this);
+    return typeof this == 'function' && getInternalState(this).source || inspectSource(this);
   });
   });
 
@@ -419,7 +423,7 @@
         copyConstructorProperties(sourceProperty, targetProperty);
       }
       if (options.sham || (targetProperty && targetProperty.sham)) {
-        hide(sourceProperty, 'sham', true);
+        createNonEnumerableProperty(sourceProperty, 'sham', true);
       }
       redefine(target, key, sourceProperty, options);
     }
@@ -434,7 +438,17 @@
   };
 
   var nativeAssign = Object.assign;
+  var defineProperty = Object.defineProperty;
   var objectAssign = !nativeAssign || fails(function () {
+    if (descriptors && nativeAssign({ b: 1 }, nativeAssign(defineProperty({}, 'a', {
+      enumerable: true,
+      get: function () {
+        defineProperty(this, 'b', {
+          value: 3,
+          enumerable: false
+        });
+      }
+    }), { b: 2 })).b !== 1) return true;
     var A = {};
     var B = {};
     var symbol = Symbol();
@@ -2565,4 +2579,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
