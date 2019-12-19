@@ -1,18 +1,16 @@
 # Argon Formatter
 
-A universal library for formatting currency values. This is a <b>fork</b> of <a href="https://github.com/smirzaei/currency-formatter">Smirzaei's</a> currency-formatter.
+Argon Formatter is universal currency formatter. This is a <b>fork</b> of <a href="https://github.com/smirzaei/currency-formatter">Smirzaei's</a> currency-formatter except that it provides UMD and ESM builds.
 
-Install
-=
+## Install
 
 ```bash
 npm install argon-formatter --save
 ```
 
-Basic Usage
-=
+## Basic Usage
 
-By specifying the currency code
+Using currency code
 
 ```js
 import * as argonFormatter from 'argon-formatter';
@@ -27,7 +25,8 @@ argonFormatter.format(1000000, { code: 'EUR' });
 // => '1 000 000,00 €'
 ```
 
-Or by specifying the locale
+Using locale
+
 ```js
 import * as argonFormatter from 'argon-formatter';
 
@@ -47,7 +46,7 @@ argonFormatter.format(1000000, { locale: 'nl-NL' });
 // => '€1.000.000,00'
 ```
 
-You can also get the currency information.
+## Get currency information
 
 ```js
 import * as argonFormatter from 'argon-formatter';
@@ -66,7 +65,7 @@ argonFormatter.findCurrency('USD');
 
 ```
 
-Parse the number of a monetary value
+## Unformat
 
 ```js
 
@@ -96,9 +95,9 @@ argonFormatter.unformat('10,00 CHF', { code: 'CHF' })
 
 ```
 
-Advanced Usage
-=
-Currency Formatter uses [accounting](https://github.com/openexchangerates/accounting.js) library under the hood, and you can use its options to override the default behavior.
+## Advanced Usage
+
+Argon Formatter uses [accounting](https://github.com/openexchangerates/accounting.js) under the hood, and you can use its options to override default behavior.
 
 ```js
 import * as argonFormatter from 'argon-formatter';
@@ -124,7 +123,7 @@ argonFormatter.format(-10, {
 // => ($10)
 ```
 
-You could also get a list of all the currencies:
+## Getting a list of all currencies
 
 ```js
 const currencies = argonFormatter.currencies();
