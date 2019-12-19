@@ -303,12 +303,11 @@ describe('format', () => {
   })
 
   context('When the currency is not found', () => {
-    it('Uses default values', () => {
+    it('Use currency code instead of symbol', () => {
       var result = currencyFormatter.format(1000000, {
-        code: 'None existing currency'
+        code: 'None'
       })
-
-      assert.equal(result, '1,000,000.00')
+      assert.equal(result, 'None 1,000,000.00')
     })
   })
 })
